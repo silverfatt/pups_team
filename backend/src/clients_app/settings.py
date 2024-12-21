@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     postgres_host: str
     postgres_port: str
     postgres_database: str
+    gigachat_token: str
 
     class Config:
         env_file = ".env"
