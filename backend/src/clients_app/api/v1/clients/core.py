@@ -23,4 +23,37 @@ async def get_date_distribution_of_records(pool: Pool) -> dict:
             res = await connection.fetch(
                 query,
             )
-    return {str(item[0]): item[1] for item in res} if res else {}  # type: ignore
+    return {f"2024-{str(item[0])}": item[1] for item in res} if res else {}
+
+
+async def get_date_distribution_of_records_1(pool: Pool) -> dict:
+    query = "SELECT  EXTRACT(month FROM comment_date),COUNT(*) FROM clients WHERE rating_value = 1 GROUP BY EXTRACT(month FROM comment_date) ORDER BY EXTRACT(month FROM comment_date)"
+
+    async with pool.acquire() as connection:
+        async with connection.transaction():
+            res = await connection.fetch(
+                query,
+            )
+    return {f"2024-{str(item[0])}": item[1] for item in res} if res else {}
+
+
+async def get_date_distribution_of_records_0(pool: Pool) -> dict:
+    query = "SELECT  EXTRACT(month FROM comment_date),COUNT(*) FROM clients WHERE rating_value = 0 GROUP BY EXTRACT(month FROM comment_date) ORDER BY EXTRACT(month FROM comment_date)"
+
+    async with pool.acquire() as connection:
+        async with connection.transaction():
+            res = await connection.fetch(
+                query,
+            )
+    return {f"2024-{str(item[0])}": item[1] for item in res} if res else {}
+
+
+async def get_date_distribution_of_records_2(pool: Pool) -> dict:
+    query = "SELECT  EXTRACT(month FROM comment_date),COUNT(*) FROM clients WHERE rating_value = 2 GROUP BY EXTRACT(month FROM comment_date) ORDER BY EXTRACT(month FROM comment_date)"
+
+    async with pool.acquire() as connection:
+        async with connection.transaction():
+            res = await connection.fetch(
+                query,
+            )
+    return {f"2024-{str(item[0])}": item[1] for item in res} if res else {}
